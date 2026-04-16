@@ -34,7 +34,7 @@ export default function Navbar() {
 
         {/* LOGO */}
         <h1 className="text-xl md:text-2xl font-bold text-green-400">
-          A.J. Estate
+          A.J Estate
         </h1>
 
         {/* DESKTOP MENU */}
