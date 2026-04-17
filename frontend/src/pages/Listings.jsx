@@ -50,7 +50,7 @@ export default function Listings() {
     <>
       <Navbar />
 
-      {/* 🔥 BACKGROUND */}
+      {/*  BACKGROUND */}
       <div className="relative min-h-screen w-full pt-16 md:pt-20">
 
         <img
@@ -62,7 +62,7 @@ export default function Listings() {
 
         <div className="relative z-10 p-6">
 
-          {/* 🔥 SEARCH INFO */}
+          {/*  SEARCH INFO */}
           {searchLocation && (
             <div className="mb-6 flex justify-between items-center bg-white rounded-lg p-3 shadow">
 

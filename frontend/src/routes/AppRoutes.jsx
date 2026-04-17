@@ -17,7 +17,7 @@ export default function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/compare" element={<Compare />} />
-        <Route path="/map" element={<MapPage />} />
+        <Route path="/map" element={<MapPage />} /> 
       </Routes>
     </BrowserRouter>
   );
