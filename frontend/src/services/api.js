@@ -1,7 +1,7 @@
 import axios from "axios";
-
+const API_URL = import.meta.env.VITE_BACKEND_API;
 const API = axios.create({
-  baseURL: "https://real-estate-txhe.onrender.com/api",
+  baseURL: `${API_URL}/api`,
   withCredentials: true
 });
 
