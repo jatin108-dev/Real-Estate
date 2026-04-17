@@ -15,9 +15,13 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.get("/",(req,res)=>{
+  res.send("App is running on port 5000 successfully");
+})
 
 app.use(cors({
-  origin: ["http://localhost:5173","https://real-estate-mu-cyan-92.vercel.app"],
+  origin: ["https://real-estate-mu-cyan-92.vercel.app","http://localhost:5173"],
+  methods:["POST","PUT","GET","DELETE","PATHCH"],
   credentials: true
 }));
 
