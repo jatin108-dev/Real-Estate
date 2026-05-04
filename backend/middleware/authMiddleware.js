@@ -3,7 +3,7 @@ const User = require("../models/User");
 
 const protect = async (req, res, next) => {
   const token = req.cookies.token;
-  console.log("Token from Auth":,token);
+  console.log("Token from Auth:",token);
   
 
   if (!token) return res.status(401).json({ message: "No token" });
