@@ -7,6 +7,7 @@ const generateToken = (res, userId) => {
 
   res.cookie("token", token, {
     httpOnly: true,
+     secure:true,
     sameSite: "lax"
   });
 };
