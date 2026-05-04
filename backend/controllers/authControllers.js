@@ -30,6 +30,7 @@ const logout = (req, res) => {
   res
     .cookie("token", "", {
       httpOnly: true,
+        sameSite: "none",
       expires: new Date(0)
     })
     .json({ message: "Logged out" });
