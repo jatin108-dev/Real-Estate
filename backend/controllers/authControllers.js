@@ -35,14 +35,25 @@ const login = async (req, res) => {
     res.status(400).json({ message: "Invalid creds" });
   }
 };
+// const logout = (req, res) => {
+//   res
+//     .cookie("token", "", {
+//       httpOnly: true,
+//         sameSite: "none",
+//       expires: new Date(0)
+//     })
+//     .json({ message: "Logged out" });
+// };
+
 const logout = (req, res) => {
-  res
-    .cookie("token", "", {
-      httpOnly: true,
-        sameSite: "none",
-      expires: new Date(0)
-    })
-    .json({ message: "Logged out" });
+  res.cookie("token", "", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    expires: new Date(0),
+  });
+
+  res.status(200).json({ message: "Logged out" });
 };
 
 module.exports = { login, register, logout };
