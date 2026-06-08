@@ -1,5 +1,5 @@
 const express = require("express");
-const mongoose = require("mongoose"); // 🔥 ADD THIS
+const mongoose = require("mongoose"); //  ADD THIS
 const protect = require("../middleware/authMiddleware");
 const Property = require("../models/Property");
 
@@ -16,14 +16,33 @@ router.get("/", async (req, res) => {
   }
 });
 
-// 🔥 GET BY ID (FIXED)
+// TESTING TEMPORARY 
+const mongoose = require("mongoose");
+
+router.get("/checkdb", async (req, res) => {
+  try {
+    const collections = await mongoose.connection.db
+      .listCollections()
+      .toArray();
+
+    res.json({
+      db: mongoose.connection.name,
+      collections: collections.map(c => c.name)
+    });
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+});
+// TESTING TEMPORARY
+
+//  GET BY ID (FIXED)
 router.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     console.log(id);
     
 
-    // 🔥 MOST IMPORTANT FIX
+    //  MOST IMPORTANT FIX
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid ID" });
     }

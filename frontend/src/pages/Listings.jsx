@@ -15,7 +15,7 @@ export default function Listings() {
   const searchLocation = query.get("location");
 
   useEffect(() => {
-    API.get("/property")
+    API.get("/property",{withCredentials:true})
       .then((res) => {
         setData(res.data);
         setLoading(false);
