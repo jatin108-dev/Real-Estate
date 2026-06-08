@@ -16,24 +16,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// TESTING TEMPORARY 
-const mongoose = require("mongoose");
-
-router.get("/checkdb", async (req, res) => {
-  try {
-    const collections = await mongoose.connection.db
-      .listCollections()
-      .toArray();
-
-    res.json({
-      db: mongoose.connection.name,
-      collections: collections.map(c => c.name)
-    });
-  } catch (err) {
-    res.status(500).json(err.message);
-  }
-});
-// TESTING TEMPORARY
 
 //  GET BY ID (FIXED)
 router.get("/:id", async (req, res) => {
