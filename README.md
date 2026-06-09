@@ -1,113 +1,128 @@
-# Helping Hand
+# Real Estate App
 
-## Overview
-Helping Hand is a two-part NGO donation and volunteer management platform.
+A full-stack real estate listing application with a React + Vite frontend and an Express + MongoDB backend.
 
-- **Frontend:** React + Vite + Tailwind CSS + Capacitor
-- **Backend:** Node.js + Express + MongoDB
-- **Features:** user registration, Google OAuth login, JWT authentication, donation tracking, event management, admin dashboard, Cloudinary image upload, Razorpay support.
+## Project Overview
+
+- **Backend**: Node.js, Express, MongoDB, JWT authentication, cookie-based session management.
+- **Frontend**: React, Vite, Tailwind CSS, React Router, Axios, Leaflet maps.
+- **Features**:
+  - User registration, login, logout
+  - Protected property creation
+  - Property listing and property detail retrieval
+  - API integration between frontend and backend
 
 ## Repository Structure
 
-- `backend/` - Express API server
-  - `app.js` - Express app setup and middleware
-  - `bin/www` - server startup script
-  - `routes/` - main API routes
-  - `models/` - MongoDB models for users, donations, events, admin
-  - `middleware/` - auth helpers like `isLoggedIn` and `isadmin`
-  - `uploads/` - static upload folder
+- `backend/`
+  - `server.js` — Express server entrypoint
+  - `config/db.js` — MongoDB connection helper
+  - `controllers/` — auth controller logic
+  - `middleware/` — authentication middleware
+  - `models/` — Mongoose models for `User` and `Property`
+  - `routes/` — auth and property API routes
+- `frontend/`
+  - `src/` — React application source code
+  - `public/` — static frontend assets
+  - `vite.config.js` — Vite configuration
+  - `package.json` — frontend dependencies and scripts
 
-- `Frontend/` - React client
-  - `src/` - React app source files
-  - `src/pages/` - page views for Home, Login, Register, Dashboard, admin pages, etc.
-  - `src/components/` - reusable UI components and route protection
-  - `src/store/` - auth provider that manages JWT storage and user info
+## Tech Stack
 
-## Key Technologies
+- Backend:
+  - `express`
+  - `mongoose`
+  - `jsonwebtoken`
+  - `bcryptjs`
+  - `cookie-parser`
+  - `cors`
+  - `dotenv`
+- Frontend:
+  - `react` 19
+  - `vite`
+  - `axios`
+  - `react-router-dom`
+  - `tailwindcss`
+  - `react-leaflet`
+  - `framer-motion`
 
-- React 19
-- Vite
-- React Router v7
-- Tailwind CSS
-- Capacitor
-- Node.js / Express
-- MongoDB with Mongoose
-- Cloudinary image uploads
-- Google OAuth login
-- JWT-based authentication
-- Razorpay payment integration
+## Environment Variables
 
-## Backend Setup
+Create a `.env` file in the `backend/` directory with these values:
 
-1. Open a terminal in `backend/`
+```env
+PORT=5000
+MONGO_URI=<your-mongodb-connection-string>
+JWT_SECRET=<your-jwt-secret>
+```
+
+Create a `.env` file in the `frontend/` directory with this value:
+
+```env
+VITE_BACKEND_API=http://localhost:5000
+```
+
+## Getting Started
+
+### Backend
+
+1. Open a terminal and navigate to `backend/`
 2. Install dependencies:
    ```bash
    npm install
    ```
-3. Create a `.env` file with the following variables:
-   ```env
-   MONGODB_URI=<your-mongodb-uri>
-   JWT_SECRET=<your-jwt-secret>
-   CLOUDINARY_CLOUD_NAME=<cloudinary-cloud-name>
-   CLOUDINARY_API_KEY=<cloudinary-api-key>
-   CLOUDINARY_API_SECRET=<cloudinary-api-secret>
-   GOOGLE_CLIENT_ID=<google-oauth-client-id>
-   GOOGLE_CLIENT_SECRET=<google-oauth-client-secret>
-   GOOGLE_REDIRECT_URI=<google-oauth-redirect-uri>
-   PASSWORD=<admin-password>
-   FULL_NAME=<admin-full-name>
-   EMAIL=<admin-email>
-   ADMIN_EMAIL=<admin-login-email>
-   ADMIN_PASSWORD=<admin-password-hash-or-plain-if-handled-in-code>
-   PORT=3000
-   ```
-4. Start the backend server:
+3. Start the backend server:
    ```bash
-   npm start
+   node server.js
    ```
+4. The backend should listen on the port configured in `PORT`.
 
-The backend listens on `PORT` or `3000` by default.
+### Frontend
 
-## Frontend Setup
-
-1. Open a terminal in `Frontend/`
+1. Open a separate terminal and navigate to `frontend/`
 2. Install dependencies:
    ```bash
    npm install
    ```
-3. Add environment variables in `Frontend/.env` for Google OAuth:
-   ```env
-   VITE_GOOGLE_CLIENT_ID=<your-google-client-id>
-   ```
-4. Start the frontend development server:
+3. Start the frontend development server:
    ```bash
    npm run dev
    ```
+4. Open the Vite-provided URL (usually `http://localhost:5173`).
 
-## Usage
+## API Endpoints
 
-- Public pages include Home, About, Programs, Login, and Register.
-- Registered users can access the dashboard and donate or view events.
-- Google login is supported via the `/api/auth/google` endpoint.
-- Admin users can access admin routes for user and event management.
+### Auth
 
-## Available Scripts
+- `POST /api/auth/register`
+  - Request body: `{ name, email, password }`
+  - Creates a new user and returns the user record.
+- `POST /api/auth/login`
+  - Request body: `{ email, password }`
+  - Authenticates the user and sets a secure cookie token.
+- `POST /api/auth/logout`
+  - Clears the authentication cookie.
+- `GET /api/auth/me`
+  - Returns the authenticated user profile.
 
-### Backend
-- `npm start` - start Express server
+### Property
 
-### Frontend
-- `npm run dev` - start Vite development server
-- `npm run build` - build production assets
-- `npm run preview` - preview built assets
-- `npm run lint` - run ESLint
+- `GET /api/property`
+  - Returns all property listings.
+- `GET /api/property/:id`
+  - Returns the details of a single property by ID.
+- `POST /api/property`
+  - Protected route. Creates a new property listing.
 
 ## Notes
 
-- The project uses JWT tokens stored in `localStorage` for authentication.
-- The frontend auth provider loads user info from backend endpoints like `/user` and `/find/donate`.
-- File uploads are handled by Cloudinary via `multer-storage-cloudinary`.
-- Admin user is seeded from environment variables when the backend starts.
+- The backend allows CORS for `http://localhost:5173` and a deployed Vercel origin.
+- The app uses cookie-based JWT authentication, so `withCredentials: true` is enabled in frontend requests.
+- There are currently no automated tests configured.
 
-## Contact
-For support or updates, inspect the source files in `backend/routes/` and `Frontend/src/`.
+## Future Improvements
+
+- Add validation for request payloads
+- Add property update and delete endpoints
+- Add frontend authenticated routes for account/profile management
+- Add automated tests for backend and frontend
